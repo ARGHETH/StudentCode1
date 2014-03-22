@@ -62,8 +62,18 @@ namespace StudentPiER
         /// The encoder connected to the right motor.
         /// </summary>
         private GrizzlyEncoder rightEncoder;
+        
+        /// This assumes we get one-delete if needed
+        /// <summary>
+        /// An on/off switch detecting if it's pressed.
+        /// </summary>
+        ///private DigitalLimitSwitch limitSwitch;
 
-
+        /// <summary>
+        /// A servo to move the door up and down.
+        /// </summary>
+        private ServoMotor servo;
+        
         /// <summary>
         /// The sonar sensor on connector A5
         /// </summary>
@@ -103,7 +113,9 @@ namespace StudentPiER
 
             this.leftEncoder = new GrizzlyEncoder(1, leftMotor, robot);
             this.rightEncoder = new GrizzlyEncoder(1, rightMotor, robot);
-
+            
+            //this.limitSwitch = new DigitalLimitSwitch(robot, Watson.Analog.__);
+            this.servo = 
         }
 
         /// <summary>
@@ -198,12 +210,56 @@ namespace StudentPiER
             // this.leftMotor.Throttle = (int)i;
             //Debug.Print("Autonomous");
 
-
+            //This code is meant to speed up until a certain distance is reached 
+            //(a little bit before the wall).
+            //After, it slows down and then stops when it reaches the wall. 
+            // - Daniel
+            /*
+            
+            double totalDistance = 5; //I still need to figure this out
+            double leftDistance = this.leftEncoder.Displacement;
+            double rightDistance = this.rightEncoder.Displacement;
+            boolean useDoor = false;
+            int button = this.robot.PiEMOSDigitalVals[_];
+            
+            for (int speedUp = 0; i < 99; i += 33) {
+                if (leftDistance < totalDistance / 2 && rightDistance < totalDistance /2) {
+                    this.leftMotor.Throttle = i;
+                    this.rightMotor.Throttle = i;
+                }
+                else if (leftDistance == totalDistance / 2 && rightDistance == totalDistance /2) {
+                    this.leftMotor.Throttle = 100;
+                    this.rightMotor.Throttle = 100;
+                }
+            }
+            
+            for (int speedDown = 99; i > 0; i -= 33) {
+                if (leftDistance < totalDistance - .5 && rightDistance < totalDistance - .5) {
+                    this.leftMotor.Throttle = i;
+                    this.rightMotor.Throttle = i;
+                }
+                else if (leftDistance >= totalDistance - .5 && rightDistance >= totalDistance - .5 && !useDoor) {
+                    this.leftMotor.Throttle = 0;
+                    this.rightMotor.Throttle = 0;
+                }
+            }
+            
+            /*if (limitSwitch.isPressed()) {
+                this.leftMotor.Throttle = 0;
+                this.rightMotor.Throttle = 0;
+                useDoor = true;
+            }*/
+            if (useDoor) {
+                pi
+            }
+            */
+            
             //The simulator robot doesn't seem to have encoders
             //and I haven't had time to test it on the real robot, so this hasn't been tested.
             //I think it should make the robot drive around and do some turns, then stop.
             //It's not very well designed, but hopefully it works.
             // - Patrick
+            
             Debug.Print("Left Distance: " + this.leftEncoder.Displacement);
             Debug.Print("Right Distance: " + this.rightEncoder.Displacement);
 
