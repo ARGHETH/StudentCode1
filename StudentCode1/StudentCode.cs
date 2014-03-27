@@ -75,6 +75,11 @@ namespace StudentPiER
         private ServoMotor servo;
         
         /// <summary>
+        /// The servo controller.
+        /// </summary>
+        private MicroMaestro maestro;
+        
+        /// <summary>
         /// The sonar sensor on connector A5
         /// </summary>
         private AnalogSonarDistanceSensor sonar;
@@ -115,7 +120,9 @@ namespace StudentPiER
             this.rightEncoder = new GrizzlyEncoder(1, rightMotor, robot);
             
             //this.limitSwitch = new DigitalLimitSwitch(robot, Watson.Analog.__);
-            this.servo = 
+            this.maestro = new MicroMaestro(robot, ushort deviceAdd);
+            //Until we get a servo and someone figures this out, it's commented out.
+            //this.servo = new ServoMotor(robot, maestro,  MicroMaestro.Pins channel, 4000, 4000000, 50);
         }
 
         /// <summary>
@@ -223,7 +230,7 @@ namespace StudentPiER
             int button = this.robot.PiEMOSDigitalVals[_];
             
             for (int speedUp = 0; i < 99; i += 33) {
-                if (leftDistance < totalDistance / 2 && rightDistance < totalDistance /2) {
+                if (leftDistance < totalDistance /2 && rightDistance < totalDistance /2) {
                     this.leftMotor.Throttle = i;
                     this.rightMotor.Throttle = i;
                 }
@@ -244,13 +251,13 @@ namespace StudentPiER
                 }
             }
             
-            /*if (limitSwitch.isPressed()) {
-                this.leftMotor.Throttle = 0;
-                this.rightMotor.Throttle = 0;
-                useDoor = true;
-            }*/
+            //if (limitSwitch.isPressed()) {
+            //    this.leftMotor.Throttle = 0;
+            //    this.rightMotor.Throttle = 0;
+            //    useDoor = true;
+            //}
             if (useDoor) {
-                pi
+                
             }
             */
             
